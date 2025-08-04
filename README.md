@@ -73,6 +73,20 @@ Executes the test suite for reusable React components.
 
 
 
+## OWASP Top 10 Checklist
+
+| OWASP Top 10 (2021) Category               | Notes                                   |
+|--------------------------------------------|-----------------------------------------|
+| A01: Broken Access Control                 | ❌                                       |
+| A02: Cryptographic Failures                | ❌                                       |
+| A03: Injection (SQL, XSS, etc.)            | ❌                                       |
+| A04: Insecure Design                       | ❌                                       |
+| A05: Security Misconfiguration             | ❌                                       |
+| A06: Vulnerable and Outdated Components    | 0 vulnerabilities detected in npm audit |
+| A07: Identification and Authentication Failures | ❌                                  |
+| A08: Software and Data Integrity Failures  | ❌                                       |
+| A09: Security Logging and Monitoring Failures | ❌                                   |
+| A10: Server-Side Request Forgery (SSRF)    | ❌                                       |
 
 
 ## Acknowledgements  
