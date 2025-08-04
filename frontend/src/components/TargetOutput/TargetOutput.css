@@ -1,0 +1,21 @@
+.target-output-container {
+  display: flex;
+  align-items: center; /* vertically center label and input */
+  width: 100%;
+  max-width: 600px; /* optional: limit container width */
+  padding: 1rem;
+  gap: 2rem; /* consistent spacing between label & input */
+
+}
+
+.target-output-label {
+  margin: 0;
+  white-space: nowrap; /* keep label from wrapping */
+}
+
+.target-output-value {
+  flex: 1; /* value expands to fill available space */
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+}

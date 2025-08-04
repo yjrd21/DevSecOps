@@ -1,0 +1,41 @@
+/* Container for the navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: #282c34;
+  color: #fff;
+}
+
+/* Logo text */
+.navbar-logo {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Container for nav links */
+.navbar-links {
+  display: flex;
+  gap: 16px;
+}
+
+/* Default link styling */
+.navbar-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Hover effect */
+.navbar-link:hover {
+  color: #61dafb; /* React blue */
+}
+
+/* Active link */
+.navbar-link.active {
+  color: #61dafb;
+  text-decoration: underline;
+}

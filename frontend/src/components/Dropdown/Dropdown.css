@@ -1,0 +1,23 @@
+.dropdown-container {
+  display: flex;
+  align-items: center; /* vertically center label and input */
+  width: 100%;
+  max-width: 600px; /* optional: limit container width */
+  padding: 1rem;
+  margin-bottom: 1rem;
+  gap: 2rem; /* consistent spacing between label & input */
+}
+
+.dropdown-label {
+  margin: 0;
+  font-weight: bold;
+  white-space: nowrap;       /* prevent label from breaking line */
+}
+
+.dropdown {
+  flex: 1;                   /* let dropdown expand */
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 1px;
+
+}

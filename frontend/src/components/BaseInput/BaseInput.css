@@ -1,0 +1,21 @@
+.base-input-container {
+  display: flex;
+  align-items: center; /* vertically center label and input */
+  width: 100%;
+  max-width: 600px; /* optional: limit container width */
+  padding: 1rem;
+  gap: 2rem; /* consistent spacing between label & input */
+}
+
+.base-input-label {
+  margin: 0;
+  white-space: nowrap; /* keep label from wrapping */
+}
+
+.base-input {
+  flex: 1; /* input expands to fill available space */
+  padding: 0.5rem 1rem; /* horizontal padding for input */
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
