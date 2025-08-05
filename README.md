@@ -58,9 +58,9 @@ Runs the React + TypeScript frontend on the local development server.
 
 ### Backend (Node.js + Express API)
 ```bash
-cd currency-converter/backend
+cd currency-converter
 npm install
-npx nodemon server.js
+node backend/server.js
 ```
 Starts the backend server that fetches currency data from the ExchangeRate API.
 
