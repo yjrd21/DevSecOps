@@ -1,0 +1,31 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    # Frontend
+    - name: Install frontend dependencies
+      run: cd frontend && npm install
+    - name: Build frontend
+      run: cd frontend && npm run build
+    - name: Test frontend
+      run: cd frontend && npm test -- --watchAll=false
+
+    # Backend
+    - name: Install backend dependencies
+      run: cd backend && npm install
+    - name: Build backend
+      run: cd backend && npm run build
