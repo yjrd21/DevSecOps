@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import BaseInput from './BaseInput'
-import React, { useState } from 'react'
+import {useState}  from 'react'
 
 // Wrapper for testing real user interactions with state management
 const StatefulWrapper = ({ 

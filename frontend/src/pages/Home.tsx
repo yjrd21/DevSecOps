@@ -6,16 +6,14 @@ import TargetOutput from "../components/TargetOutput/TargetOutput";
 import ErrorDisplay from "../components/ErrorDisplay/ErrorDisplay";
 import "../styles/typography.css";
 import {
-  ApiCurrencyService,
   type CurrencyService,
 } from "../services/CurrencyService";
-import e from "cors";
 
 interface HomePageProps {
   currencyService: CurrencyService;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ currencyService }) => {
+const HomePage: React.FC<HomePageProps> = ({currencyService}) => {
   const [baseAmount, setBaseAmount] = useState("");
   const [targetAmount, setTargetAmount] = useState("");
   const [baseCurrency, setBaseCurrency] = useState("SGD");
@@ -26,7 +24,7 @@ const HomePage: React.FC<HomePageProps> = ({ currencyService }) => {
   );
 
   useEffect(() => {
-    ApiCurrencyService.fetchRates()
+    currencyService.fetchRates()
       .then((data) => {
         console.log("✅ Fetched rates:", data);
         setCurrencyData(data);
