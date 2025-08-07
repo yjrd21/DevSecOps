@@ -22,7 +22,7 @@ jobs:
     - name: Build frontend
       run: cd frontend && npm run build
     - name: Test frontend
-      run: cd frontend && npm test -- --watchAll=false
+      run: cd frontend && npm test 
 
     # Backend
     - name: Install backend dependencies
