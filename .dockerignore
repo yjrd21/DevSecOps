@@ -1,0 +1,15 @@
+
+# Ignore local dependencies
+node_modules
+
+# Ignore build outputs
+dist
+build
+
+# Ignore local dev files
+npm-debug.log
+yarn-error.log
+
+# Keep lockfile for reproducible installs
+!package-lock.json
+

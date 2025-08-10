@@ -48,28 +48,24 @@ This project serves as an introduction to the field of DevSecOps, using a simple
 
 ## Running  
 
-### Frontend (React App)  
+### Dev mode: Frontend (React App)  and Backend(Node.js + Express API )
 ```bash
 cd currency-converter
 npm install
 npm run dev
 ```
-Runs the React + TypeScript frontend on the local development server.
 
-### Backend (Node.js + Express API)
-```bash
-cd currency-converter
-npm install
-node backend/server.js
-```
-Starts the backend server that fetches currency data from the ExchangeRate API.
-
-### Test Cases (Reusable Components)
+### Dev mode: Test Cases (Reusable Components)
 ```bash
 cd currency-converter
 npm run test
 ```
 Executes the test suite for reusable React components.
+
+### Docker 
+docker compose down --rmi all --volumes
+docker compose build 
+docker compose up 
 
 
 

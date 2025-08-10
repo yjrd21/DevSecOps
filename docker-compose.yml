@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: .                # repo root so we can access the root package-lock.json
+      dockerfile: backend/Dockerfile
+    container_name: backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - "5001:5001"
+    networks: [app-network]
+
+  frontend:
+    build:
+      context: .                # repo root so we can access the root package-lock.json
+      dockerfile: frontend/Dockerfile
+    container_name: frontend
+    env_file:
+      - ./frontend/.env.docker
+    ports:
+      - "5173:5173"
+    depends_on: [backend]
+    networks: [app-network]
+
+networks:
+  app-network:

@@ -2,9 +2,11 @@ interface CurrencyService {
   fetchRates: () => Promise<{ [key: string]: number }>;
 }
 
+const API_BASE = import.meta.env.VITE_BACKEND_ORIGIN;
+
 const ApiCurrencyService: CurrencyService = {
   async fetchRates() {
-    const response = await fetch("http://localhost:5001/api/currency/");
+    const response = await fetch(`${API_BASE}/api/currency`);
     if (!response.ok) {
       throw new Error("Failed to fetch currency data");
     }

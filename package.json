@@ -1,38 +1,22 @@
 {
   "name": "currency-converter",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+    "dev": "concurrently -n BE,FE -c yellow,cyan \"npm run -w backend dev\" \"npm run -w frontend dev:development\"",
+    "build": "npm run -w frontend build",
+    "start": "npm run -w backend start",
+    "test": "npm test -w frontend"
   },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.1",
-    "express": "^5.1.0",
-    "node-fetch": "^3.3.2",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router-dom": "^7.7.1"
+  "engines": {
+    "node": ">=20"
   },
+  "packageManager": "npm@10.8.1",
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.6.4",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/cors": "^2.8.19",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react": "^4.6.0",
-    "globals": "^16.3.0",
-    "jsdom": "^26.1.0",
-    "nodemon": "^3.1.10",
-    "typescript": "~5.8.3",
-    "vite": "^7.0.4",
-    "vitest": "^3.2.4"
+    "concurrently": "^9.2.0",
+    "cross-env": "^7.0.3"
   }
 }

@@ -3,7 +3,7 @@ import { getCurrencyRates } from "../services/currencyService.js";
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (_req, res) => {
   try {
     const rates = await getCurrencyRates();
     console.log("Fetched currency rates:", rates);

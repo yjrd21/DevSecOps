@@ -1,11 +1,15 @@
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
+import path from 'path';
 
-dotenv.config(); // load .env into process.env
 
-console.log("Loaded API_URL:", process.env.API_URL);
 const getCurrencyRates = async () => {
-  const response = await fetch(process.env.VITE_API_URL);
+  const apiUrl = process.env.CURRENCY_API_URL;
+  console.log ("Fetching currency rates from:", apiUrl);
+  if (!apiUrl) {
+    throw new Error("CURRENCY_API_URL is not set");
+  }
+  const response = await fetch(apiUrl);
   if (!response.ok) {
     throw new Error('Failed to fetch currency rates');
   }

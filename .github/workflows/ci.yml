@@ -15,17 +15,31 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
+        cache: 'npm'
 
     # Frontend
+    # Install based on package-lock.json in frontend
     - name: Install frontend dependencies
-      run: cd frontend && npm install
+      working-directory: frontend
+      run: npm ci
+
+    # Run build script : "tsc -b && vite build --mode production" in package.json
+    # tsc - b type checks the code in build mode, using tsconfig.json which
+    # references tsconfig.app.json and tsconfig.node.json
     - name: Build frontend
-      run: cd frontend && npm run build
+      working-directory: frontend
+      run: npm run FE:build:production
+
+    # Run tests in frontend
+    # --watchAll=false ensures tests run once and exit
     - name: Test frontend
-      run: cd frontend && npm test -- --watchAll=false
+      working-directory: frontend
+      run: npm test -- --watchAll=false
 
     # Backend
     - name: Install backend dependencies
-      run: cd backend && npm install
-    - name: Build backend
-      run: cd backend && npm run build
+      working-directory: backend
+      run: npm ci
+
+
+
