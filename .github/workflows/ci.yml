@@ -35,6 +35,7 @@ jobs:
     - name: Test frontend
       working-directory: frontend
       run: npm test -- --watchAll=false
+      run: cd frontend && npm test 
 
     # Backend
     - name: Install backend dependencies
