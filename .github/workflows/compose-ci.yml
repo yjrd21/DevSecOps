@@ -1,0 +1,69 @@
+name: Compose CI
+on:
+  pull_request:
+  push:
+
+jobs:
+  compose-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show Docker versions
+        run: docker version && docker compose version
+
+      - name: Write env files from secrets
+        run: |
+          printf "PORT=5001\nCURRENCY_API_URL=%s\n" "$CURRENCY_API_URL" > backend/.env
+          printf "VITE_BACKEND_ORIGIN=%s\n" "$VITE_BACKEND_ORIGIN" > frontend/.env.docker
+        env:
+          CURRENCY_API_URL: ${{ secrets.CURRENCY_API_URL }}
+          VITE_BACKEND_ORIGIN: ${{ secrets.VITE_BACKEND_ORIGIN }}
+
+      # Render compose file with secrets 
+      - name: Validate compose file
+        run: docker compose config
+
+   
+      - name: Build images
+        run: docker compose build --pull --build-arg VITE_BACKEND_ORIGIN=${{ secrets.VITE_BACKEND_ORIGIN }}
+
+      # Equivalent to: docker compose up -d
+      - name: Start stack
+        run: docker compose up -d
+      
+    
+      # CI integration smoke tests - To be implemented once understood 
+      # # Wait for backend to be reachable (adjust path if needed)
+      # - name: Wait for backend health
+      #   run: |
+      #     for i in {1..30}; do
+      #       if curl -fsS http://localhost:5001/health >/dev/null; then
+      #         echo "Backend healthy"; exit 0
+      #       fi
+      #       # fallback: try root if /health doesn't exist yet
+      #       if curl -fsS http://localhost:5001/ >/dev/null; then
+      #         echo "Backend responding on /"; exit 0
+      #       fi
+      #       echo "Waiting for backend... ($i/30)"
+      #       sleep 2
+      #     done
+      #     echo "Backend not healthy"; docker compose logs backend; exit 1
+
+      # # Quick check that the frontend is serving something
+      # - name: Check frontend is serving
+      #   run: |
+      #     curl -fsS http://localhost:5173 >/dev/null || (docker compose logs frontend && exit 1)
+
+      # # On failure, dump all logs to help debugging
+      # - name: Dump logs on failure
+      #   if: failure()
+      #   run: docker compose logs
+
+      # # Equivalent to: docker compose down -v
+      # # (No need to --rmi all; runner is ephemeral)
+      # - name: Tear down
+      #   if: always()
+      #   run: docker compose down -v

@@ -15,5 +15,8 @@ WORKDIR /app/frontend
 RUN npm run build
 EXPOSE 5173
 
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 # Default commands for Vite preview and network settings in 
 CMD ["npm", "run", "preview", "--", "--host", "--port", "5173"]

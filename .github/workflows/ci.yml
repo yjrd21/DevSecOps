@@ -28,14 +28,13 @@ jobs:
     # references tsconfig.app.json and tsconfig.node.json
     - name: Build frontend
       working-directory: frontend
-      run: npm run FE:build:production
+      run: npm run build
 
     # Run tests in frontend
     # --watchAll=false ensures tests run once and exit
     - name: Test frontend
       working-directory: frontend
       run: npm test -- --watchAll=false
-      run: cd frontend && npm test 
 
     # Backend
     - name: Install backend dependencies
