@@ -8,6 +8,10 @@ COPY frontend/package.json frontend/
 
 RUN npm ci --workspace frontend --include-workspace-root=false
 
+# ⬇️ Declare and export BEFORE the build so Vite can read it
+ARG VITE_BACKEND_ORIGIN
+ENV VITE_BACKEND_ORIGIN=$VITE_BACKEND_ORIGIN
+
 COPY frontend/ frontend/
 
 # Build once: serve with vite preview in production mode
@@ -15,8 +19,6 @@ WORKDIR /app/frontend
 RUN npm run build
 EXPOSE 5173
 
-ARG VITE_API_URL
-ENV VITE_API_URL=$VITE_API_URL
 
 # Default commands for Vite preview and network settings in 
 CMD ["npm", "run", "preview", "--", "--host", "--port", "5173"]

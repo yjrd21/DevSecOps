@@ -31,10 +31,9 @@ jobs:
       run: npm run build
 
     # Run tests in frontend
-    # --watchAll=false ensures tests run once and exit
     - name: Test frontend
       working-directory: frontend
-      run: npm test -- --watchAll=false
+      run: npm test -- --run
 
     # Backend
     - name: Install backend dependencies
