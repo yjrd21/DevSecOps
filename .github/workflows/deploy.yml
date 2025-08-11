@@ -1,0 +1,70 @@
+# name: Deploy to Staging (Compose)
+
+# on:
+#   workflow_run:
+#     workflows: ["Docker Build & Publish"]
+#     types: [completed]
+
+# env:
+#   IMAGE_FRONTEND: ghcr.io/${{ github.repository }}/frontend
+#   IMAGE_BACKEND:  ghcr.io/${{ github.repository }}/backend
+
+# jobs:
+#   deploy:
+#     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+#     runs-on: ubuntu-latest
+#     environment: staging  # gate with approvals & environment-scoped secrets
+
+#     steps:
+#       - name: Compute tag from published commit
+#         id: meta
+#         run: echo "TAG=sha-${SHA}" >> $GITHUB_OUTPUT
+#         env:
+#           SHA: ${{ github.event.workflow_run.head_sha }}
+
+#       - name: SSH and deploy
+#         uses: appleboy/ssh-action@v1.2.0
+#         with:
+#           host:     ${{ secrets.STAGING_HOST }}
+#           username: ${{ secrets.STAGING_USER }}
+#           key:      ${{ secrets.STAGING_SSH_KEY }}
+#           port:     ${{ secrets.STAGING_PORT || 22 }}
+#           script: |
+#             set -euo pipefail
+#             APP_DIR=/opt/currency-app
+#             mkdir -p "$APP_DIR"
+#             cd "$APP_DIR"
+
+#             # Login to GHCR (PAT with read:packages)
+#             echo "${{ secrets.GHCR_READ_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
+
+#             # Write/keep env files (first run will create them)
+#             [ -f backend.env ]  || echo "CURRENCY_API_URL=${{ secrets.STAGING_CURRENCY_API_URL }}" > backend.env
+#             [ -f frontend.env ] || echo "VITE_BACKEND_ORIGIN=${{ secrets.STAGING_VITE_BACKEND_ORIGIN }}" > frontend.env
+
+#             # Compose file pointing at GHCR images (by SHA tag)
+#             cat > docker-compose.yml <<'EOF'
+#             services:
+#               backend:
+#                 image: ${IMAGE_BACKEND}:${TAG}
+#                 env_file: [./backend.env]
+#                 ports: ["5001:5001"]
+#                 networks: [app-net]
+#               frontend:
+#                 image: ${IMAGE_FRONTEND}:${TAG}
+#                 env_file: [./frontend.env]
+#                 # For quick staging, expose on 80; swap to nginx/https later
+#                 ports: ["80:5173"]
+#                 depends_on: [backend]
+#                 networks: [app-net]
+#             networks:
+#               app-net:
+#             EOF
+
+#             export IMAGE_BACKEND="${{ env.IMAGE_BACKEND }}"
+#             export IMAGE_FRONTEND="${{ env.IMAGE_FRONTEND }}"
+#             export TAG="${{ steps.meta.outputs.TAG }}"
+
+#             docker compose pull
+#             docker compose up -d
+#             docker image prune -f
