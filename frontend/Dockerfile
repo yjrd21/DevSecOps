@@ -8,10 +8,6 @@ COPY frontend/package.json frontend/
 
 RUN npm ci --workspace frontend --include-workspace-root=false
 
-# ⬇️ Declare and export BEFORE the build so Vite can read it
-ARG VITE_BACKEND_ORIGIN
-ENV VITE_BACKEND_ORIGIN=$VITE_BACKEND_ORIGIN
-
 COPY frontend/ frontend/
 
 # Build once: serve with vite preview in production mode

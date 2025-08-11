@@ -49,6 +49,7 @@ npm test
 ```bash
 docker compose down --rmi all --volumes
 docker compose build 
+  --build-arg VITE_BACKEND_ORIGIN=http://localhost:5001
 docker compose up 
 # Frontend: http://localhost:5173
 # Backend:  http://localhost:5001
